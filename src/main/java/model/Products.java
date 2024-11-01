@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Tobi
@@ -18,6 +20,7 @@ public class Products {
     private String description;
     private String image;
     private double rate;
+    private Date createdDate;
 
     // Constructors
     public Products() {
@@ -106,6 +109,22 @@ public class Products {
 
     public void setRate(Double rate) {
         this.rate = rate;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }
 

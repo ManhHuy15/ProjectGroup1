@@ -226,6 +226,33 @@ public boolean deleteUserById(int userId) {
     }
 }
 
+    public boolean updateUser(Users user) {
+        String sql = "UPDATE [dbo].[Users]\n" +
+                "   SET [password_hash] = ?\n" +
+                "      ,[email] = ?\n" +
+                "      ,[phone_number] = ?\n" +
+                "      ,[address] = ?\n" +
+                " WHERE Users.user_id = ?";
+
+        try (Connection conn = new DBContext().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Set parameters for the prepared statement
+            stmt.setString(1, user.getPassword());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPhone());
+            stmt.setString(4, user.getAddress());
+            stmt.setInt(5, user.getUserId());
+
+            stmt.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Returns false if an error occurred
+        }
+    }
+
 
 }
 

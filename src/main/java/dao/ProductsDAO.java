@@ -22,7 +22,7 @@ public class ProductsDAO {
     // Method to retrieve all products
 public List<Products> getAllProducts() {
     List<Products> products = new ArrayList<>();
-    String query = "SELECT Product_ID, Brand, Product_Name, Price, Quantity, Size, Description, Image, Rate FROM Products";
+    String query = "select * from Products";
     
     try (Connection con = new DBContext().getConnection(); 
          PreparedStatement ps = con.prepareStatement(query); 
@@ -30,15 +30,13 @@ public List<Products> getAllProducts() {
 
         while (rs.next()) {
             Products product = new Products();
-            product.setProductId(rs.getInt("Product_ID"));
-            product.setBrand(rs.getString("Brand"));
-            product.setProductName(rs.getString("Product_Name"));
-            product.setPrice(rs.getDouble("Price"));  
-            product.setQuantity(rs.getInt("Quantity"));
-            product.setSize(rs.getString("Size"));
-            product.setDescription(rs.getString("Description"));
-            product.setImage(rs.getString("Image"));
-            product.setRate(rs.getDouble("Rate"));  
+            product.setProductId(rs.getInt("product_id"));
+
+            product.setProductName(rs.getString("product_name"));
+            product.setPrice(rs.getDouble("price"));
+            product.setQuantity(rs.getInt("stock"));
+            product.setDescription(rs.getString("description"));
+            product.setCreatedDate(rs.getDate("created_at"));
             products.add(product);
         }
     } catch (SQLException e) {
