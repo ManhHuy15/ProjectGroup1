@@ -1,0 +1,13 @@
+dao\ProductsDAO.class
+controller\LoginServlet.class
+controller\updateProductsServlet.class
+controller\ProductServlet.class
+model\Products.class
+model\Users.class
+dbcontext\DBContext.class
+controller\LogoutServlet.class
+dao\UserDAO.class
+controller\ChangeInfoAccountServlet.class
+controller\RegisterServlet.class
+controller\updateCustomersServlet.class
+controller\HomeServlet.class
