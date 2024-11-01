@@ -58,7 +58,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("register.jsp").forward(request, response);
+        
     }
 
     /**
@@ -82,8 +82,8 @@ public class RegisterServlet extends HttpServlet {
 
         // Kiểm tra nếu tên người dùng đã tồn tại
         UserDAO userDAO = new UserDAO();
-        if (userDAO.getUserByUserNameAndEmail(userName,email) != null) {
-            request.setAttribute("error", "UserName hoặc Email đã được đăng ký.");
+        if (userDAO.getUserByUserName(userName) != null) {
+            request.setAttribute("error", "UserName đã được đăng ký.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
@@ -101,7 +101,7 @@ public class RegisterServlet extends HttpServlet {
         newUser.setDob(dob);
 
         // Gán vai trò là 'customer'
-        newUser.setRole("user");
+        newUser.setRole("customer");
 
         // Lưu người dùng mới vào cơ sở dữ liệu
         userDAO.addUser(newUser);

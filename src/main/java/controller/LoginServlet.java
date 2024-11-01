@@ -18,7 +18,7 @@ import model.Users;
  *
  * @author Tobi
  */
-@WebServlet("/login")
+@WebServlet(name="LoginServlet", urlPatterns={"/login"})
 public class LoginServlet extends HttpServlet {
 
     /**
@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /**
@@ -72,13 +72,13 @@ public class LoginServlet extends HttpServlet {
      */
      @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userName = request.getParameter("userName");
+        String userName = request.getParameter("username");
         String password = request.getParameter("password");
 
         // Check user credentials via UserDAO
         UserDAO userDAO = new UserDAO();
         Users user = userDAO.getUserByUserNameAndPassword(userName, password);
-
+        
         if (user != null) {
             // Valid login, set the user in session
             HttpSession session = request.getSession();
@@ -86,15 +86,16 @@ public class LoginServlet extends HttpServlet {
 
             // Redirect based on user role
             if ("admin".equals(user.getRole())) {
-                response.sendRedirect("adminPage.jsp");
-            } else if ("customer".equals(user.getRole())) {
-                response.sendRedirect("customerPage.jsp");
+                response.sendRedirect("home.jsp");
+            } else if ("user".equals(user.getRole())) {
+                response.sendRedirect("home.jsp");
             }
         } else {
             // Invalid credentials, display error
             request.setAttribute("error", "Invalid email or password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
+        
     }
 
     /**

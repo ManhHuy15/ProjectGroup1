@@ -4,23 +4,20 @@
  */
 package controller;
 
-import dao.UserDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
-import java.time.LocalDate;
-import model.Users;
-
+import jakarta.servlet.http.HttpSession;
 /**
  *
- * @author Tobi
+ * @author Asus
  */
-@WebServlet(name="RegisterServlet", urlPatterns={"/register"})
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/logout"})
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,18 +32,20 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterServlet</title>");            
+            out.println("<title>Servlet LogoutServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LogoutServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -58,7 +57,9 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("register.jsp").forward(request, response);
+          HttpSession session = request.getSession();
+          session.setAttribute("user", null);
+          response.sendRedirect("login");
     }
 
     /**
@@ -70,44 +71,9 @@ public class RegisterServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Lấy thông tin từ form đăng ký
-        String userName = request.getParameter("userName");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String address = request.getParameter("address");
-        String dateOfBirth = request.getParameter("dateOfBirth");
-
-        // Kiểm tra nếu tên người dùng đã tồn tại
-        UserDAO userDAO = new UserDAO();
-        if (userDAO.getUserByUserNameAndEmail(userName,email) != null) {
-            request.setAttribute("error", "UserName hoặc Email đã được đăng ký.");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-            return;
-        }
-
-        // Tạo người dùng mới
-        Users newUser = new Users();
-        newUser.setUserName(userName);
-        newUser.setEmail(email);
-        newUser.setPassword(password);
-        newUser.setPhone(phoneNumber);
-        newUser.setAddress(address);
-
-        // Chuyển đổi ngày sinh sang LocalDate
-        LocalDate dob = LocalDate.parse(dateOfBirth);
-        newUser.setDob(dob);
-
-        // Gán vai trò là 'customer'
-        newUser.setRole("user");
-
-        // Lưu người dùng mới vào cơ sở dữ liệu
-        userDAO.addUser(newUser);
-
-        // Chuyển hướng đến trang đăng nhập sau khi đăng ký thành công
-        response.sendRedirect("login.jsp");
+        processRequest(request, response);
     }
 
     /**
@@ -117,6 +83,7 @@ public class RegisterServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet for user registration";
-    }
+        return "Short description";
+    }// </editor-fold>
+
 }

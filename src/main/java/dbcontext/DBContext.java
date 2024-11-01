@@ -4,16 +4,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBContext {
-
-    public static Connection getConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     protected Connection connection;
 
     public DBContext() {
         try {
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=Project_PRJ301_Group5_Booking_Room_Hotel;trustServerCertificate=true";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=assignmentPRJ301;trustServerCertificate=true";
             String username = "sa";
             String password = "123";
 
@@ -31,6 +26,10 @@ public class DBContext {
             System.out.println(e);
             return false;
         }
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     public static void main(String[] args) { // Check connect of sql with netbeans

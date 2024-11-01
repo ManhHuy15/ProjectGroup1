@@ -90,6 +90,13 @@ public Users getUserByUserNameAndEmail(String username, String email) {
         }
         return null;
     }
+    
+    
+    public static void main(String[] args) {
+        UserDAO u = new UserDAO();
+        Users user =  u.getUserByUserNameAndEmail("huy", "huya3k52@gmail.com");
+        System.out.println(user.getRole());
+    }
 
 
 // Method to add a new user
