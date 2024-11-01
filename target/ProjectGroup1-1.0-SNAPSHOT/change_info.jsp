@@ -13,10 +13,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="text-center">Change Info Account ${sessionScope.user.userName}</h2>
 
-        <form action="change_info_account" method="post" style="max-width: 400px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); padding: 20px;" onsubmit="return validatePassword()">
+    <h2 class="text-center">Change Info Account ${sessionScope.user.userName}</h2>
+    <div class="container mt-5">
+
+        <form action="change_info_account" method="post" style="max-width: 400px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); padding: 20px;">
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="text" class="form-control" id="email" name="email" required value="${sessionScope.user.email}">
@@ -34,13 +35,9 @@
 
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <input type="password" class="form-control" id="password" name="password" required value="${sessionScope.user.password}">
             </div>
 
-            <div class="form-group">
-                <label for="repeatPassword">Repeat Password:</label>
-                <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" required>
-            </div>
 
             <div id="passwordError" style="color: red; display: none;">
                 Passwords do not match.

@@ -76,6 +76,7 @@ public Users getUserByUserNameAndEmail(String username, String email) {
                 Users user = new Users();
                 user.setUserId(rs.getInt("user_id"));
                 user.setUserName(rs.getString("username"));
+                user.setPassword(rs.getString("password_hash"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phone_number"));
                 user.setAddress(rs.getString("address"));
