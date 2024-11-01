@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ProjectGroup1" options="-endorseddirs C:\Users\Asus\Downloads\phu\ProjectGroup1\target/endorsed" />
+      <module name="ProjectGroup1" options="-endorseddirs C:\Users\kttan\Downloads\ProjectGroup1\target/endorsed" />
     </option>
   </component>
 </project>
